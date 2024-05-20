@@ -3,11 +3,15 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { Button } from '@ui5/webcomponents-react';
+import '@aws-amplify/ui-react/styles.css';
+import { Authenticator } from '@aws-amplify/ui-react';
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
+    <Authenticator>
+      {({ signOut, user }) => (
     <>
       <div>
         <a href="https://vitejs.dev" target="_blank">
@@ -31,6 +35,8 @@ function App() {
       </p>
       <Button onClick={() => alert('Hello World!')}>Hello world!</Button>
     </>
+    )}
+    </Authenticator>
   )
 }
 
