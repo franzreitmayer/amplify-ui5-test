@@ -10,10 +10,24 @@ import {
   TableRow,
   TableCell,
   TableColumn,
+  Label
 } from '@ui5/webcomponents-react';
+import { generateClient } from "aws-amplify/data";
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const client = generateClient();
+  const loadInitialTimetracks = () => {
+    const allTimetracks = client.models.Timetrack.list();
+    console.log(JSON.stringify(allTimetracks));
+    return allTimetracks;
+  };
+
+  const allTimetracks = loadInitialTimetracks();
+  const [count, setCount] = useState(0);
+  const [timetracks, setTimetracks] = useState(allTimetracks);
+
+
 
   return (
     <Authenticator>
@@ -28,8 +42,15 @@ function App() {
               <TableColumn><Label>To</Label></TableColumn>
             </>}
           >
-
-
+            {
+              // timetracks.map( (timetracks) => {
+              //   <TableRow>
+              //     <TableCell>
+              //       <Label>{timetracks.title}</Label>
+              //     </TableCell>
+              //   </TableRow>
+              // })
+            }
           </Table>
           <div>
             <a href="https://vitejs.dev" target="_blank">
