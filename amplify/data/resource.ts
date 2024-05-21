@@ -12,6 +12,14 @@ const schema = a.schema({
       content: a.string(),
     })
     .authorization((allow) => [allow.guest()]),
+  Timetrack: a
+    .model({
+      title: a.string(),
+      description: a.string(),
+      day: a.date(),
+      from: a.time(),
+      to: a.time()
+    }).authorization((allow) => [allow.guest()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
