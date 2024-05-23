@@ -16,16 +16,27 @@ import { generateClient } from "aws-amplify/data";
 
 
 function App() {
-  const client = generateClient();
-  const loadInitialTimetracks = () => {
-    const allTimetracks = client.models.Timetrack.list();
-    console.log(JSON.stringify(allTimetracks));
+  const client = generateClient({
+    authMode: 'userPool'
+  });
+  const loadInitialTimetracks = async () => {
+    const { newTimetrack, newError } =  await client.models.Timetrack.create({
+      title: 'Test',
+      description: 'Test'
+    });
+    console.log(`New Timetrack: ${newTimetrack}, error: ${newError}`);
+    const { allTimetracks, errors } = await client.models.Timetrack.list();
+    console.log(`Errors: ${errors}`);
+    console.log("data: " + JSON.stringify(allTimetracks));
     return allTimetracks;
   };
 
+
   const allTimetracks = loadInitialTimetracks();
-  const [count, setCount] = useState(0);
+
   const [timetracks, setTimetracks] = useState(allTimetracks);
+
+  const [count, setCount] = useState(0);
 
 
 

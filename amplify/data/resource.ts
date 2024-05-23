@@ -19,7 +19,7 @@ const schema = a.schema({
       day: a.date(),
       from: a.time(),
       to: a.time()
-    }).authorization((allow) => [allow.guest()]),
+    }).authorization((allow) => [allow.authenticated()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
